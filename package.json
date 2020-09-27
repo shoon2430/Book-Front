@@ -1,6 +1,7 @@
 {
   "name": "book-front",
   "version": "0.1.0",
+  "proxy": "http://localhost:9000",
   "private": true,
   "dependencies": {
     "@babel/core": "7.9.0",

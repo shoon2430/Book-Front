@@ -5,6 +5,11 @@ import { observer, inject } from "mobx-react";
 @inject("bookStore")
 @observer
 class BookListContainer extends Component {
+  componentDidMount() {
+    const { bookStore } = this.props;
+    bookStore.bookList();
+  }
+
   onSelect = (book) => {
     const { bookStore } = this.props;
     bookStore.select(book);
