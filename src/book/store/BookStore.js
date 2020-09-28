@@ -9,7 +9,7 @@ class BookStore {
 
   @observable books = [];
   @observable book = null;
-  @observable errorMessage = "";
+  @observable errorMessage = null;
 
   @computed get _book() {
     return this.book ? { ...this.book } : {};
@@ -51,16 +51,10 @@ class BookStore {
       newBook.imgUrl = imageInfo.fileUploadUri;
     }
     const result = await this.bookApi.bookCreate(newBook);
-    if (result === null) this.errorMessage = "CREATE ERROR";
+    if (result !== 200) this.errorMessage = "CREATE ERROR";
 
-    alert("도서가 등록되었습니다.");
+    alert(this.errorMessage || "도서가 등록되었습니다.");
     window.location.reload();
-  }
-
-  @action
-  async bookDelete(ISBN) {
-    const result = this.bookApi.bookDelete(ISBN);
-    if (result === null) this.errorMessage = `${ISBN} DELETE ERROR`;
   }
 
   @action
@@ -74,16 +68,20 @@ class BookStore {
     }
 
     const result = this.bookApi.bookModify(updateBook);
-    if (result === null)
-      this.errorMessage = `${bookApiModel.ISBN} UPDATE ERROR`;
+    if (result !== 200) this.errorMessage = "UPDATE ERROR";
 
-    alert("도서가 수정되었습니다.");
+    alert(this.errorMessage || "도서가 수정되었습니다.");
     window.location.reload();
   }
 
   @action
-  async search(searchType, keyword) {
-    this.books = await this.bookApi.search(searchType, keyword);
+  async bookDelete(ISBN) {
+    const result = await this.bookApi.bookDelete(ISBN);
+    console.log(result);
+    if (result !== 200) this.errorMessage = `${ISBN} DELETE ERROR`;
+
+    alert(this.errorMessage || "도서가 삭제되었습니다.");
+    window.location.reload();
   }
 }
 

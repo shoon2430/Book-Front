@@ -19,6 +19,14 @@ class BookDetailsContainer extends Component {
     });
   };
 
+  //도서 삭제하기
+  deleteBook = () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      const { bookStore } = this.props;
+      bookStore.bookDelete(bookStore._book.isbn);
+    }
+  };
+
   modifyModal = () => {
     return (
       <BookModalFormView
@@ -37,7 +45,11 @@ class BookDetailsContainer extends Component {
       Object.keys(book).length === 0 && book.constructor === Object ? (
         <></>
       ) : (
-        <BookDetailsView book={book} modifyModal={this.modifyModal()} />
+        <BookDetailsView
+          book={book}
+          modifyModal={this.modifyModal()}
+          deleteBook={this.deleteBook}
+        />
       );
 
     return BookDetailsComponent;

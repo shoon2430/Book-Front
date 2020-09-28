@@ -8,7 +8,7 @@ class BookModalFormView extends Component {
     this.state = {
       open: false,
       file: null,
-      imgUrl: this.props.book.imgUrl || "",
+      imgUrl: this.props.book.imgUrl || null,
       isbn: this.props.book.isbn || "",
       title: this.props.book.title || "",
       author: this.props.book.author || "",
@@ -21,7 +21,7 @@ class BookModalFormView extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.book !== prevProps.book) {
       this.setState({
-        imgUrl: this.props.book.imgUrl || "",
+        imgUrl: this.props.book.imgUrl || null,
         isbn: this.props.book.isbn || "",
         title: this.props.book.title || "",
         author: this.props.book.author || "",

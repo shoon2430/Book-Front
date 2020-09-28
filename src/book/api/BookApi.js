@@ -36,19 +36,19 @@ class BookApi {
   bookCreate(bookApiModel) {
     return axios
       .post(this.URL, bookApiModel)
-      .then((response) => (response && response.data) || null);
+      .then((response) => response.status);
   }
 
   bookModify(bookApiModel) {
     return axios
       .put(this.URL, bookApiModel)
-      .then((response) => (response && response.data) || null);
+      .then((response) => response.status);
   }
 
   bookDelete(ISBN) {
     return axios
-      .delete(this.URL + `${ISBN}`)
-      .then((response) => (response && response.data) || null);
+      .delete(this.URL + `${ISBN}/`)
+      .then((response) => response.status);
   }
 }
 

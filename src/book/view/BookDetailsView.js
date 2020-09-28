@@ -3,7 +3,7 @@ import { Card, Image, Button } from "semantic-ui-react";
 
 class BookDetailsView extends Component {
   render() {
-    const { book, modifyModal } = this.props;
+    const { book, modifyModal, deleteBook } = this.props;
 
     return (
       <Card>
@@ -21,7 +21,9 @@ class BookDetailsView extends Component {
         </Card.Content>
         <Card.Content extra>
           {modifyModal}
-          <Button color="black">삭제</Button>
+          <Button color="black" onClick={deleteBook}>
+            삭제
+          </Button>
         </Card.Content>
       </Card>
     );
