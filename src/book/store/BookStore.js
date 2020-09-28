@@ -54,7 +54,7 @@ class BookStore {
     if (result === null) this.errorMessage = "CREATE ERROR";
 
     alert("도서가 등록되었습니다.");
-    this.bookList();
+    window.location.reload();
   }
 
   @action
@@ -64,10 +64,21 @@ class BookStore {
   }
 
   @action
-  async bookUpdate(bookApiModel) {
-    const result = this.bookApi.bookModify(bookApiModel);
+  async bookUpdate(bookApiModel, imgFile) {
+    const updateBook = new BookApiModel(bookApiModel);
+
+    if (imgFile) {
+      const imageInfo = await this.bookApi.bookImageUpload(imgFile);
+      if (imageInfo === null) this.errorMessage = "IMAGE UPLOAD ERROR";
+      updateBook.imgUrl = imageInfo.fileUploadUri;
+    }
+
+    const result = this.bookApi.bookModify(updateBook);
     if (result === null)
       this.errorMessage = `${bookApiModel.ISBN} UPDATE ERROR`;
+
+    alert("도서가 수정되었습니다.");
+    window.location.reload();
   }
 
   @action

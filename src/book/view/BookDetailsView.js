@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image, Button } from "semantic-ui-react";
 
 class BookDetailsView extends Component {
   render() {
-    const { book } = this.props;
+    const { book, modifyModal } = this.props;
 
     return (
       <Card>
@@ -19,7 +19,10 @@ class BookDetailsView extends Component {
           </Card.Meta>
           <Card.Description>{book.introduce}</Card.Description>
         </Card.Content>
-        <Card.Content extra></Card.Content>
+        <Card.Content extra>
+          {modifyModal}
+          <Button color="black">삭제</Button>
+        </Card.Content>
       </Card>
     );
   }
