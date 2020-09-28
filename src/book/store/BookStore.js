@@ -25,13 +25,11 @@ class BookStore {
 
   @action select = (book) => {
     this.book = book;
-    // this.bookDetail(book.isbn);
   };
 
   @action
   async bookList() {
     const books = await this.bookApi.bookList();
-
     this.books = books.map((book) => {
       return new BookApiModel(book);
     });
@@ -44,9 +42,19 @@ class BookStore {
   }
 
   @action
-  async bookCreate(bookApiModel) {
-    const result = this.bookApi.bookCreate(bookApiModel);
+  async bookCreate(bookApiModel, imgFile) {
+    const newBook = new BookApiModel(bookApiModel);
+
+    if (imgFile) {
+      const imageInfo = await this.bookApi.bookImageUpload(imgFile);
+      if (imageInfo === null) this.errorMessage = "IMAGE UPLOAD ERROR";
+      newBook.imgUrl = imageInfo.fileUploadUri;
+    }
+    const result = await this.bookApi.bookCreate(newBook);
     if (result === null) this.errorMessage = "CREATE ERROR";
+
+    alert("도서가 등록되었습니다.");
+    this.bookList();
   }
 
   @action

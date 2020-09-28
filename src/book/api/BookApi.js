@@ -12,14 +12,24 @@ class BookApi {
   URL = "/api/books/";
 
   bookList() {
-    return axios
-      .get(this.URL)
-      .then((response) => (response && response.data) || null);
+    return axios.get(this.URL).then((response) => {
+      if (Object.keys(response.data).includes("message")) return [];
+      return response.data;
+    });
   }
 
   bookDetail(ISBN) {
     return axios
       .get(this.URL + `${ISBN}/`)
+      .then((response) => (response && response.data) || null);
+  }
+
+  bookImageUpload(imgFile) {
+    let formData = new FormData();
+    formData.append("file", imgFile);
+
+    return axios
+      .post("/api/uploadFile/", formData)
       .then((response) => (response && response.data) || null);
   }
 

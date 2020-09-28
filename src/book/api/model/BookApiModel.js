@@ -5,7 +5,7 @@ export default class BookApiModel {
     this.author = book.author;
     this.publisher = book.publisher;
     this.price = book.price;
-    this.imgUrl = book.imgUrl;
+    this.imgUrl = book.imgUrl || "/images/noImage.png";
     this.introduce = book.introduce;
   }
 }

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Header, Divider } from "semantic-ui-react";
-import BookAddModal from "./BookAddModal";
+import { Divider, Header } from "semantic-ui-react";
 
 const headerStyle = {
   paddingTop: "20px",
@@ -9,11 +8,16 @@ const headerStyle = {
 
 class BookHeaderView extends Component {
   render() {
+    const { bookAddModal } = this.props;
+
     return (
-      <Header style={headerStyle} as="h1" dividing>
-        Books Manage Page
-        {/* <BookAddModal /> */}
-      </Header>
+      <>
+        <Header style={headerStyle} as="h1" dividing>
+          Books Manage Page
+        </Header>
+        {bookAddModal}
+        <Divider />
+      </>
     );
   }
 }
